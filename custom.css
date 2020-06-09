@@ -1,0 +1,90 @@
+/*****BODY*****/
+body {
+    line-height: 2rem;;
+ }
+  
+  
+ /*****NAVIGATION*****/
+ .navbar-custom {
+    background-color:  black;
+ }
+  
+  
+  
+ .navbar-custom .navbar-brand,
+ .navbar-custom .navbar-text {
+    color: grey;
+ }
+  
+ .navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: #6CABA9;
+ }
+  
+  
+ .nav .nav-item .nav-link {
+    color: grey;
+   
+ }
+  
+ .nav .nav-item .nav-link:hover, .nav .nav-item .nav-link:active {
+    background-color:black;
+    color: white;
+ }
+  
+  
+  
+ .nav .nav-item .active {
+    background-color: black;
+    color: #6CABA9;
+  }
+  
+  
+ /*****PAGE TITLE*****/
+ h2 {
+    color: #6CABA9;
+    text-align: center;
+    margin-top: 5rem;
+ }
+  
+ hr {
+    border: 2px dotted black;
+    margin-bottom: 2rem;
+ }
+  
+ a {
+    color: #D8B335;
+ }
+  
+ a:active, a:hover {
+    color: black;
+    text-decoration:none
+ }
+  
+  
+ /*****FOOTER*****/
+ .myFooter {
+    background-color: black;
+    color: white;
+    margin-top: 2rem;
+ }
+  
+ .myFooter a {
+    color: #6BABA8;
+ }
+  
+ .myFooter a:hover, .myFooter a:active{
+    color:white;
+    border-color: white;
+ }
+  
+ .icon {
+    border: 1px solid  #6CABA9;
+    border-radius: 100%;
+    padding:  0.5rem 0.7rem;
+    margin: 0 0.3rem;
+ }
+  
+  
+  
+ 
+ 
