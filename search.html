@@ -34,15 +34,17 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7FVTW3"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+
   <nav class="navbar navbar-expand-sm navbar-dark navbar-custom fixed-top">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="search.html">Search</a></li>
+    <li><a class='home-button' href="index.html">Home</a></li>
+    <li><a class='search-button' href="search.html">Search</a></li>
+    <li><a class='randomizer-button' href="randomizer.html">List Randomizer</a></li>
   </nav>
- <div class="container" style="margin-top:50px">
+ <div class="container" style="margin-top:40px">
 
   <div class="row">
     <div class="col-sm-12">
-      <h1>Filters</h1>
+      <h1 style="margin-top:4rem">Filters</h1>
     </div>
   </div>
 
@@ -99,7 +101,7 @@
     
     <div class="col-lg-1"></div>
     <div class="col-lg-2">
-      <button id="submit-search" onclick="buildStringAndSearch()">Submit</button>
+      <button id="submit-search" onclick="buildStringAndSearch()" class="button-submit">Submit</button>
     </div>
 
   </div>
@@ -112,11 +114,13 @@
        <hr>
      </div>
    </div>
+   <div class="row" id="spacer"></div>
    <div class="row" id="search-results"></div>
   
    </div>
    </div>
  </div>
+
  <div class="jumbotron text-center myFooter" style="margin-bottom:0">
    <p>&copy; Team 1</p>
    <p>

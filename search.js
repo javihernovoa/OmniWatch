@@ -1,6 +1,13 @@
-var idCount = 0;
-var dest = "search-results";
+/******************* Global Variables **********************/
 
+//Ensures even more unique identification for each movie
+var idCount = 0;
+
+/******************* API Information Gathering **********************/
+
+/**
+ * Creates a search string for the RV Case Competition API and then loads a search with that search string.
+ */
 function buildStringAndSearch() {
     let type = $("#film-type").val();
     if (type != "movie" && type != "show") {
@@ -8,12 +15,14 @@ function buildStringAndSearch() {
     } else {
         let platformString = $("#streaming-platform").val() == "''" ? "" : "?platform=" + $("#streaming-platform").val();
         let resultString = type + platformString;
-        console.log(resultString);
         document.getElementById("search-results").innerHTML = "";
-        loadRVResults(resultString,$("#amount").val(),dest);
+        loadRVResults(resultString,$("#amount").val(),"search-results");
     }
 }
 
+/**
+ * Performs a Rapid API search using the imdb identifier, then sends all the information to buildContainer()
+ */
 function loadResultsRapid(id,RVFilmObject,destination) {
     //Rapid API Search
     var settings = {
@@ -23,17 +32,23 @@ function loadResultsRapid(id,RVFilmObject,destination) {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-		    "x-rapidapi-key": "00f5143491msh0bfce74005d8410p1b1993jsn6bce55e178d6"
+		    "x-rapidapi-key": "39aface514msh08c918df052a12fp1af962jsncc7918374a7b"
         }
     }
 
     $.ajax(settings).done(function (response) {
         APIResult = response;
-        console.log(response);
+
+        //Send all info to buildContainer to display the movie
         buildContainer(RVFilmObject,APIResult,destination);
     });
 }
 
+/**
+ * Runs an API Request through the RV CaseCompetition API. The data is then sorted by popularity and
+ * then the imdb identifier is used for each movie/show found (up to the requested numberToGet) to run
+ * another API query, this time to the RAPID API (for more IMDB info).
+ */
 function loadRVResults(searchInquiry,numberToGet,destination) {
     if (numberToGet != 0) {
         // Searching via RV API
@@ -48,16 +63,51 @@ function loadRVResults(searchInquiry,numberToGet,destination) {
 
         $.ajax(settings).done(function (response) {
             APIResult = response;
+
+            //Sort the results by popularity
             response.sort((a,b) => (a.popularity < b.popularity) ? 1 : -1);
-            response.forEach(x => 
-                if (parseInt(x.release_date.substring(0,4)) >= $("#date").val())
-                );
-            for (let i = 0; i < numberToGet; i++) {
-                loadResultsRapid(response[i].imdb,response[i],destination);
+
+            //Delete any movies from the results that are before the specified date
+            let numFound = 0;
+            if ($("#date").val() != "''") {
+                for (let i = 0; i < response.length; i++) {
+                    if (parseInt(response[i].release_date.substring(0,4)) < $("#date").val()) {
+                        delete response[i];
+                    } else {
+                        numFound++;
+                    }
+
+                    //Only search through for movies with the proper date while we have less than
+                    //numberToGet total movies.
+                    if (numFound >= numberToGet) {
+                        break;
+                    }
+                }
+            }
+            
+            //Take each result from the search and perform a RAPID API request with the data
+            let extra = 0;
+            if (response.length <= 0) {
+                alert("No results found");
+            } else {
+                for (let i = 0; i < numberToGet; i++) {
+                    while (response[i+extra] == undefined || response[i+extra] == null) {
+                        extra++;
+                        if (i+extra > response.length) {
+                            break;
+                        }
+                    }
+
+                    if (response[i+extra] != undefined && response[i+extra] != null) {
+                        loadResultsRapid(response[i+extra].imdb,response[i+extra],destination);
+                    }
+                }
             }
         });
     }
 }
+
+/******************* Dynamic HTML Content Creation **********************/
 
 /**
  * Takes the JSON object provided and dynamically creates an HTML container with bootstrap containing all
@@ -75,23 +125,23 @@ function buildContainer(RVFilmObject, rapidFilmObject,injectionLocation) {
     let streamingButtons = "";
     let netflixButton = "";
 
-    // THERE IS A BETTER WAY OF THIS, hard coding the streaming platforms is not ideal!
+    //Create a button that links to each streaming platform if that show/movie can be streamed there.
     RVFilmObject.streaming_platform.forEach(platform => {
         if (platform.includes('netflix')) {
-            netflixButton = "<div class='col-md-2'></div><div class='col-md-10'><form action='https://www.netflix.com/' method='get' target='_blank'><button type='submit' class='netflix-button'>Stream on Netflix</button></form></div>";
+            netflixButton = "<div class='col-md-2'></div><div class='col-md-10'><form action='https://www.netflix.com/' method='get' target='_blank'><button type='submit' class='netflix-button button-submit'>Stream on Netflix</button></form></div>";
             streamingButtons = streamingButtons.concat(netflixButton);
         }
         if (platform.includes('hbo')) {
-            HBOButton = "<div class='col-md-2'></div><div class='col-md-10'><form action='https://www.hbo.com/' method='get' target='_blank'><button type='submit' class='hbo-button'>Stream on HBO</button></form></div>";
+            HBOButton = "<div class='col-md-2'></div><div class='col-md-10'><form action='https://www.hbo.com/' method='get' target='_blank'><button type='submit' class='hbo-button button-submit'>Stream on HBO</button></form></div>";
             streamingButtons = streamingButtons.concat(HBOButton);
         }
         if (platform.includes('amazon_prime')) {
-            primeButton = "<div class='col-md-2'></div><div class='col-md-10'><form action='https://www.primevideo.com/' method='get' target='_blank'><button type='submit' class='primevideo-button'>Stream on Prime</button></form></div>";
+            primeButton = "<div class='col-md-2'></div><div class='col-md-10'><form action='https://www.primevideo.com/' method='get' target='_blank'><button type='submit' class='primevideo-button button-submit'>Stream on Prime</button></form></div>";
             streamingButtons = streamingButtons.concat(primeButton);
         }
     });
-    console.log(streamingButtons);
     
+    //Dynamically create an HTML container with all information about the movie alongside a poster.
     let htmlContainer = 
     "<div class='col-md-4' 'col-sm-6' 'col-xs-12'>" +
         "<div class='item-container' id=" + id + " onclick=\"showExtraInfo('"+ childID +"')\">" +
@@ -114,7 +164,6 @@ function buildContainer(RVFilmObject, rapidFilmObject,injectionLocation) {
             "</div>" +
         "</div>" +
         "<div class='watch-buttons'>" +
-            //Insert Streaming Platform Info and buttons
             "<div id='Stream-Sites'>"+streamingButtons+"</div>" +
         "</div>" + 
     "</div>" +
@@ -132,6 +181,7 @@ function buildContainer(RVFilmObject, rapidFilmObject,injectionLocation) {
         "</div>" +
     "</div>";
 
+    //Insert the HTML container into the specified area.
     $("#"+injectionLocation).append(htmlContainer);
 }
 

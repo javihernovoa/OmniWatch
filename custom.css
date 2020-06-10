@@ -41,17 +41,21 @@ body {
 h1 {
    text-align: center;
    font-size: 2.25rem;
+   margin-bottom: 3.5rem;
+   margin-top: 5rem;
 }
 
  h2 {
     /* color: #6CABA9; */
     text-align: center;
-    margin-top: 5rem;
+    margin-top: 4rem;
  }
   
  h3 {
    text-align: center;
    font-size: 0.7rem;
+   margin-bottom: 1.4rem;
+   margin-top: 1.2rem;
 }
 
  hr {
@@ -71,12 +75,62 @@ h1 {
   
 
  /*****BUTTONS*****/
-#Stream-Sites {
-   margin-top: 1rem;
-   /* display: flex; 
-   align-content: center; */
+.button-submit {
+   display:inline-block;
+   padding:0.3em 1.2em;
+   margin:0 0.1em 0.1em 0;
+   border:0.16em solid rgba(255, 255, 255, 0);
+   border-radius:2em;
+   box-sizing: border-box;
+   font-weight:400;
+   color:rgb(0, 81, 255);
+   text-shadow: 0 0.05em 0.05em rgba(0, 0, 0, 0.479);
+   text-align:center;
+   transition: all 0.2s;
 }
 
+.button-submit:hover {
+   border-color: rgba(255,255,255,1);
+   color:rgb(70, 44, 185);
+}
+
+#randomizer-button {
+   text-align: center;
+   position: center;
+   margin-top: 1.5rem;
+   padding: 0.5rem 5.0rem;
+}
+
+
+
+/*****MOVIES*****/
+.col-md-12 {
+   text-align: center;
+}
+
+.col-md-4 {
+   margin-top: 2rem;
+   text-align: center;
+   font-style: italic;
+   /* font-size: 1.5rem; */
+}
+
+
+/*****SEARCH RESULTS*****/
+#spacer {
+   height: 5vh;
+}
+
+
+.item-container {
+   text-align: center;
+   padding: 0 1.9rem;
+}
+
+.watch-buttons {
+   margin-left: 1.9rem;
+   margin-top: 1.1rem;
+}
 
  /*****FOOTER*****/
  .myFooter {
@@ -95,8 +149,85 @@ h1 {
  }
   
 
-  
-  
-  
  
+
  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
