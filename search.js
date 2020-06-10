@@ -1,9 +1,18 @@
 var idCount = 0;
+var dest = "search-results";
 
-$(document).ready(function() {
- loadRVResults("movie",6,"movie-results");
- loadRVResults("show",6,"show-results");
-});
+function buildStringAndSearch() {
+    let type = $("#film-type").val();
+    if (type != "movie" && type != "show") {
+        alert("Please select a film type.");
+    } else {
+        let platformString = $("#streaming-platform").val() == "''" ? "" : "?platform=" + $("#streaming-platform").val();
+        let resultString = type + platformString;
+        console.log(resultString);
+        document.getElementById("search-results").innerHTML = "";
+        loadRVResults(resultString,$("#amount").val(),dest);
+    }
+}
 
 function loadResultsRapid(id,RVFilmObject,destination) {
     //Rapid API Search
@@ -26,24 +35,28 @@ function loadResultsRapid(id,RVFilmObject,destination) {
 }
 
 function loadRVResults(searchInquiry,numberToGet,destination) {
-    // Searching via RV API
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://casecomp.konnectrv.io/" + searchInquiry,
-        "method": "GET",
-        "headers": {
+    if (numberToGet != 0) {
+        // Searching via RV API
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://casecomp.konnectrv.io/" + searchInquiry,
+            "method": "GET",
+            "headers": {
+            }
         }
-    }
 
-    $.ajax(settings).done(function (response) {
-        APIResult = response;
-        response.sort((a,b) => (a.popularity < b.popularity) ? 1 : -1);
-        
-        for (let i = 0; i < numberToGet; i++) {
-            loadResultsRapid(response[i].imdb,response[i],destination);
-        }
-    });
+        $.ajax(settings).done(function (response) {
+            APIResult = response;
+            response.sort((a,b) => (a.popularity < b.popularity) ? 1 : -1);
+            response.forEach(x => 
+                if (parseInt(x.release_date.substring(0,4)) >= $("#date").val())
+                );
+            for (let i = 0; i < numberToGet; i++) {
+                loadResultsRapid(response[i].imdb,response[i],destination);
+            }
+        });
+    }
 }
 
 /**

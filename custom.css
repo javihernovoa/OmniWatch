@@ -1,6 +1,7 @@
 /*****BODY*****/
 body {
-    line-height: 2rem;;
+    line-height: 2rem;
+    background-color: #b6cecf;
  }
   
   
@@ -9,58 +10,74 @@ body {
     background-color:  black;
  }
   
-  
-  
  .navbar-custom .navbar-brand,
  .navbar-custom .navbar-text {
-    color: grey;
+    color: rgb(255, 255, 255);
  }
   
  .navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
     color: #6CABA9;
  }
   
-  
  .nav .nav-item .nav-link {
     color: grey;
    
  }
   
- .nav .nav-item .nav-link:hover, .nav .nav-item .nav-link:active {
+ .nav .nav-item .nav-link:hover, .nav .nav-item .nav-link:active .navbar-brand:hover{
     background-color:black;
-    color: white;
+    color: rgb(108, 236, 236);
  }
   
   
   
  .nav .nav-item .active {
     background-color: black;
-    color: #6CABA9;
+    color: rgb(108, 236, 236);
   }
   
   
  /*****PAGE TITLE*****/
+h1 {
+   text-align: center;
+   font-size: 2.25rem;
+}
+
  h2 {
-    color: #6CABA9;
+    /* color: #6CABA9; */
     text-align: center;
     margin-top: 5rem;
  }
   
+ h3 {
+   text-align: center;
+   font-size: 0.7rem;
+}
+
  hr {
     border: 2px dotted black;
     margin-bottom: 2rem;
  }
   
  a {
-    color: #D8B335;
+    color: rgb(255, 255, 255);
  }
   
  a:active, a:hover {
-    color: black;
+    color: rgb(108, 236, 236);
     text-decoration:none
  }
   
   
+
+ /*****BUTTONS*****/
+#Stream-Sites {
+   margin-top: 1rem;
+   /* display: flex; 
+   align-content: center; */
+}
+
+
  /*****FOOTER*****/
  .myFooter {
     background-color: black;
@@ -77,12 +94,7 @@ body {
     border-color: white;
  }
   
- .icon {
-    border: 1px solid  #6CABA9;
-    border-radius: 100%;
-    padding:  0.5rem 0.7rem;
-    margin: 0 0.3rem;
- }
+
   
   
   

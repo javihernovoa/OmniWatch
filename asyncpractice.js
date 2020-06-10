@@ -23,10 +23,9 @@ Promise.all([
 	fetch('https://casecomp.konnectrv.io/show')
 ]).then(function (responses) {
     return responses.map(function ( response) {
-        console.log(response.json());
         return response.json();
     });
 }).then(function (data) {
-    console.log(data)
-    console.log(data[0]);
+    console.log(data);
 });
+
